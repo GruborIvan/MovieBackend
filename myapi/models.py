@@ -1,9 +1,10 @@
 from django.db import models
 
-# Create your models here.
+class MovieGenre(models.Model):
+    genre_name = models.CharField(max_length=24)
 
 class Movie(models.Model):
-    title = models.CharField(max_length=15)
+    title = models.CharField(max_length=50)
     description = models.CharField(max_length=200)
-    imageurl = models.CharField(max_length=240)
-    genre = models.CharField(max_length=15)
+    imageurl = models.TextField(max_length=1000)
+    genre = models.ManyToManyField(MovieGenre)
