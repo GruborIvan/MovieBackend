@@ -7,7 +7,6 @@ from django.contrib.auth.password_validation import validate_password
 
 class RegisterSerializer(serializers.ModelSerializer):
     username = serializers.EmailField(required=True,validators=[UniqueValidator(queryset=User.objects.all())])
-    #username = serializers.CharField(required=True)
     password = serializers.CharField(write_only=True,required=True,validators=[validate_password])
     password2 = serializers.CharField(write_only=True,required=True)
 
@@ -26,15 +25,19 @@ class RegisterSerializer(serializers.ModelSerializer):
         user.save()
         return user
 
+
 class MovieGenreSerializer(serializers.ModelSerializer):
     class Meta:
+        ordering = ['-id']
         model = MovieGenre
-        fields = ['genre_name']
+        fields = ('id','genre_name')
+
 
 class MovieSerializer(serializers.ModelSerializer):
-
-    genre = MovieGenreSerializer(read_only=True,many=True)
+    
+    #genre = MovieGenreSerializer(read_only=True,many=True)
 
     class Meta:
+        ordering = ['-id']
         model = Movie
         fields = "__all__"
