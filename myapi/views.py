@@ -26,7 +26,6 @@ class MovieFilter(filters.FilterSet):
         fields = ('title','genre')
 
 class MovieView(generics.ListCreateAPIView):
-    queryset = Movie.objects.prefetch_related('genres').all()
     queryset = Movie.objects.all()
     serializer_class = MovieSerializer
     filterset_class = MovieFilter

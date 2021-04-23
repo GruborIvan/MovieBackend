@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'myapi.apps.MyapiConfig',
+    'reactions.apps.ReactionsConfig',
     'django_filters',
     'corsheaders'
 ]
@@ -82,9 +83,9 @@ WSGI_APPLICATION = 'project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'BackendMovieDb',
+        'NAME': 'Moviedb',
         'USER': 'root',
-        'PASSWORD': 'ivangrubor98',
+        'PASSWORD': '',
         'HOST': 'localhost',
         'PORT': '3306',
     }
