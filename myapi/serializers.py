@@ -4,6 +4,7 @@ from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth.password_validation import validate_password
+from reactions.serializers import MovieLikesCountSerializer
 
 class RegisterSerializer(serializers.ModelSerializer):
     username = serializers.EmailField(required=True,validators=[UniqueValidator(queryset=User.objects.all())])
@@ -25,7 +26,6 @@ class RegisterSerializer(serializers.ModelSerializer):
         user.save()
         return user
 
-
 class MovieGenreSerializer(serializers.ModelSerializer):
     class Meta:
         ordering = ['-id']
@@ -34,10 +34,12 @@ class MovieGenreSerializer(serializers.ModelSerializer):
 
 
 class MovieSerializer(serializers.ModelSerializer):
-    
-    #genre = MovieGenreSerializer(read_only=True,many=True)
+
+    #genre = MovieGenreSerializer(many=True)
+    #reactions = MovieLikesCountSerializer(many=True)
 
     class Meta:
         ordering = ['-id']
         model = Movie
+        #fields = ['id','title','description','imageurl','genre']
         fields = "__all__"
