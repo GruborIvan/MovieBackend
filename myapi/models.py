@@ -8,3 +8,4 @@ class Movie(models.Model):
     description = models.CharField(max_length=200)
     imageurl = models.TextField(max_length=1000)
     genre = models.ManyToManyField(MovieGenre,related_name='genres')
+    numberOfPageVisits = models.IntegerField(default=0)

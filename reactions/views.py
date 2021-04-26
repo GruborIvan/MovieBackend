@@ -14,7 +14,6 @@ class ReactionsView(generics.ListCreateAPIView):
     def get(self,request):
         user = request.user
         queryset = Reactions.objects.filter(user=user)
-        #data = serialize("json",queryset)
         data = ReactionsSerializer(queryset)
         return HttpResponse(data)
 
@@ -32,24 +31,17 @@ class ReactionsView(generics.ListCreateAPIView):
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
-
-        reactions = Reactions.objects.filter(movie_id=movieId).filter(user_id = user)
-        print(reaction)
+        reactions = Reactions.objects.filter(movie_id=movieId).filter(user_id = user).first()
 
         # Update reakcije..
         if reactions:
-            upd_reaction = reactions[0]
-            upd_reaction = ReactionsSerializer(data=upd_reaction)
-            upd_reaction = reaction
-            print(upd_reaction)
-            upd_reaction.save()
-            return Response(upd_reaction,status=status.HTTP_200_OK)
-
-        # Get movie by Id..
-        mov = Movie.objects.filter(id=movieId)[0]
+            reactions.reaction = reaction
+            reactions.save()
+            serializer_class = ReactionsSerializer(reactions)
+            return Response(serializer_class.data,status=status.HTTP_200_OK)
         
         data = {
-            "movie" : mov.id,
+            "movie" : movieId,
             "user" : user.id,
             "reaction" : reaction,
         }
