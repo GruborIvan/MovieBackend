@@ -9,8 +9,6 @@ from reactions.models import Reactions
 from django.http import HttpResponse
 from django.db.models import Count
 
-# Create your views here.
-
 @authentication_classes([])
 @permission_classes([])
 class RegisterView(generics.CreateAPIView):
@@ -43,14 +41,14 @@ class MovieViewByIndex(generics.RetrieveUpdateDestroyAPIView):
 class VisitNumberCount(generics.ListCreateAPIView):
 
     def get(self,request):
-        movieId = request.GET["movId"]
-        viewNumber = Movie.objects.get(id=movieId).numberOfPageVisits
-        return HttpResponse(viewNumber,status = status.HTTP_200_OK)
+        movie_id = request.GET["movId"]
+        view_number = Movie.objects.get(id=movie_id).numberOfPageVisits
+        return HttpResponse(view_number,status = status.HTTP_200_OK)
     
     def post(self,request):
-        movieId = request.data.get("movId")
-        theMovie = Movie.objects.get(id=movieId)
-        views = theMovie.numberOfPageVisits
-        theMovie.numberOfPageVisits = views + 1
-        theMovie.save()
-        return HttpResponse(theMovie.numberOfPageVisits,status = status.HTTP_200_OK)
+        movie_id = request.data.get("movId")
+        the_movie = Movie.objects.get(id=movie_id)
+        views = the_movie.number_of_page_visits
+        the_movie.number_of_page_visits = views + 1
+        the_movie.save()
+        return HttpResponse(the_movie.number_of_page_visits,status = status.HTTP_200_OK)

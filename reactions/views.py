@@ -17,10 +17,9 @@ class ReactionsView(generics.ListCreateAPIView):
         data = ReactionsSerializer(queryset)
         return HttpResponse(data)
 
-
     def post(self,request):
         user = self.request.user
-        movieId = request.data.get("movieId")
+        movie_id = request.data.get("movieId")
         reaction = request.data.get("reaction")
 
         # Provera da li je like ili dislike..
@@ -31,7 +30,7 @@ class ReactionsView(generics.ListCreateAPIView):
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
-        reactions = Reactions.objects.filter(movie_id=movieId).filter(user_id = user).first()
+        reactions = Reactions.objects.filter(movie_id=movie_id).filter(user_id = user).first()
 
         # Update reakcije..
         if reactions:
@@ -41,7 +40,7 @@ class ReactionsView(generics.ListCreateAPIView):
             return Response(serializer_class.data,status=status.HTTP_200_OK)
         
         data = {
-            "movie" : movieId,
+            "movie" : movie_id,
             "user" : user.id,
             "reaction" : reaction,
         }
@@ -56,7 +55,10 @@ class ReactionsView(generics.ListCreateAPIView):
             return Response(status=status.HTTP_404_NOT_FOUND)
         
 
+class CommentsView(generics.ListCreateAPIView):
 
-class ReactionsView2(generics.ListCreateAPIView):
-    queryset = Reactions.objects.all()
-    serializer_class = ReactionsSerializer
+    def get(self,request):
+        movie_id = request.movieId
+
+    def post(self,request):
+        pass

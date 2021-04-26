@@ -36,16 +36,16 @@ class MovieGenreSerializer(serializers.ModelSerializer):
 
 class MovieSerializer(serializers.ModelSerializer):
 
-    numberOfLikes = serializers.SerializerMethodField()
-    numberOfDislikes = serializers.SerializerMethodField()
+    likes = serializers.SerializerMethodField()
+    dislikes = serializers.SerializerMethodField()
 
     class Meta:
         ordering = ['-id']
         model = Movie
         fields = "__all__"
 
-    def get_numberOfLikes(self,obj):
+    def get_likes(self,obj):
         return Reactions.objects.filter(movie=obj.id).filter(reaction=True).count()
 
-    def get_numberOfDislikes(self,obj):
+    def get_dislikes(self,obj):
         return Reactions.objects.filter(movie=obj.id).filter(reaction=False).count()
