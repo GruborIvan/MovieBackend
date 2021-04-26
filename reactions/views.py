@@ -1,7 +1,7 @@
 from reactions.models import Reactions
 from myapi.models import Movie,MovieGenre
 from django.contrib.auth.models import User
-from reactions.serializers import ReactionsSerializer
+from reactions.serializers import ReactionsSerializer,CommentSerializer
 from django.shortcuts import render
 from rest_framework import status,generics
 from rest_framework.response import Response
@@ -58,7 +58,26 @@ class ReactionsView(generics.ListCreateAPIView):
 class CommentsView(generics.ListCreateAPIView):
 
     def get(self,request):
-        movie_id = request.movieId
+        movie_id = request.GET["movie_id"]
+        print(movie_id)
+        return HttpResponse(movie_id,status=status.HTTP_200_OK)
 
+    # Za kreiranje komentara treba: movie_id, content, 
     def post(self,request):
-        pass
+        user = self.request.user
+        movie_id = request.data.get("movieId")
+        content = request.data.get("content")
+
+        data = {
+            "user" : user.id,
+            "movie" : movie_id,
+            "content" : content,
+        }
+
+        serializer = CommentSerializer(data=data)
+
+        if (serializer.is_valid()):
+            serializer.save()
+            return HttpResponse(status=status.HTTP_200_OK)
+        else:
+            return HttpResponse(status=status.HTTP_400_BAD_REQUEST)

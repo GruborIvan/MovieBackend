@@ -1,4 +1,4 @@
-from reactions.models import Reactions
+from reactions.models import Reactions,Comments
 from myapi.models import Movie,MovieGenre
 from django.contrib.auth.models import User
 from rest_framework import serializers
@@ -20,4 +20,14 @@ class ReactionsSerializer(serializers.ModelSerializer):
             'movie',
             'user',
             'reaction'
+        ]
+
+class CommentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Comments
+        fields = [
+            'movie',
+            'user',
+            'content',
+            'timestamp'
         ]
