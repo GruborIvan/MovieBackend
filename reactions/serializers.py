@@ -1,18 +1,21 @@
-from reactions.models import Reactions
-from myapi.models import Movie,MovieGenre
+from reactions.models import Reactions,Comments
 from django.contrib.auth.models import User
 from rest_framework import serializers
+from rest_framework.validators import UniqueTogetherValidator
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['username']
 
 class MovieLikesCountSerializer(serializers.ModelSerializer):
     class Meta:
         model = Reactions
         queryset = Reactions.objects.count()
         fields = '__all__'
-    
-    def getNumberOfLikes(self):
-        return Reactions.objects.all().count()
 
 class ReactionsSerializer(serializers.ModelSerializer):
+    user = serializers.ReadOnlyField(source="user.id")
 
     class Meta:
         model = Reactions
@@ -20,4 +23,17 @@ class ReactionsSerializer(serializers.ModelSerializer):
             'movie',
             'user',
             'reaction'
+        ]
+
+
+class CommentSerializer(serializers.ModelSerializer):
+    user = UserSerializer(read_only=True)
+
+    class Meta:
+        model = Comments
+        fields = [
+            'movie',
+            'user',
+            'content',
+            'timestamp'
         ]

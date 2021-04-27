@@ -39,16 +39,10 @@ class MovieViewByIndex(generics.RetrieveUpdateDestroyAPIView):
 
 
 class VisitNumberCount(generics.ListCreateAPIView):
-
-    def get(self,request):
-        movie_id = request.GET["movId"]
-        view_number = Movie.objects.get(id=movie_id).numberOfPageVisits
-        return HttpResponse(view_number,status = status.HTTP_200_OK)
     
     def post(self,request):
         movie_id = request.data.get("movId")
         the_movie = Movie.objects.get(id=movie_id)
-        views = the_movie.number_of_page_visits
-        the_movie.number_of_page_visits = views + 1
+        the_movie.number_of_page_visits = the_movie.number_of_page_visits + 1
         the_movie.save()
         return HttpResponse(the_movie.number_of_page_visits,status = status.HTTP_200_OK)
