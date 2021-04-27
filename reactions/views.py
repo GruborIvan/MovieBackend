@@ -2,6 +2,7 @@ from reactions.models import Reactions,Comments
 from reactions.serializers import ReactionsSerializer,CommentSerializer
 from rest_framework import generics,status
 from django.http import HttpResponse
+from rest_framework import pagination
 
 class ReactionsView(generics.CreateAPIView):
 
@@ -19,11 +20,15 @@ class ReactionsView(generics.CreateAPIView):
                     item.save()
 
 
+class CommentPagination(pagination.PageNumberPagination):
+    page_size = 2
+
+
 class CommentsView(generics.ListCreateAPIView):
 
     queryset = Comments.objects.all()
     serializer_class = CommentSerializer
-    pagination_class = None
+    pagination_class = CommentPagination
 
     def get_queryset(self):
         return Comments.objects.filter(movie=self.request.GET.get('movie_id'))
