@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'myapi.apps.MyapiConfig',
     'reactions.apps.ReactionsConfig',
+    'user_watchlist.apps.UserWatchlistConfig',
     'django_filters',
     'rest_framework',
     'corsheaders',

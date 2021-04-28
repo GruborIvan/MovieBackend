@@ -7,7 +7,7 @@ from rest_framework.decorators import authentication_classes, permission_classes
 from django_filters import rest_framework as filters
 from reactions.models import Reactions
 from django.http import HttpResponse
-from django.db.models import Count
+from rest_framework import pagination
 
 @authentication_classes([])
 @permission_classes([])
@@ -32,7 +32,6 @@ class MovieView(generics.ListCreateAPIView):
     serializer_class = MovieSerializer
     filterset_class = MovieFilter
 
-
 class MovieViewByIndex(generics.RetrieveUpdateDestroyAPIView):
     queryset = Movie.objects.all()
     serializer_class = MovieSerializer
@@ -46,3 +45,12 @@ class VisitNumberCount(generics.ListCreateAPIView):
         the_movie.number_of_page_visits = the_movie.number_of_page_visits + 1
         the_movie.save()
         return HttpResponse(the_movie.number_of_page_visits,status = status.HTTP_200_OK)
+
+
+class CommentPagination(pagination.PageNumberPagination):
+    page_size = 2
+
+class FavoriteMovies(generics.ListAPIView):
+    serializer_class = MovieSerializer
+    queryset = Movie.objects.all()
+    pagination_class = CommentPagination

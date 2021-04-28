@@ -8,11 +8,13 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ['username']
 
+
 class MovieLikesCountSerializer(serializers.ModelSerializer):
     class Meta:
         model = Reactions
         queryset = Reactions.objects.count()
         fields = '__all__'
+
 
 class ReactionsSerializer(serializers.ModelSerializer):
     user = serializers.ReadOnlyField(source="user.id")
