@@ -40,7 +40,7 @@ class MovieSerializer(serializers.ModelSerializer):
     dislikes = serializers.SerializerMethodField()
 
     class Meta:
-        ordering = ['-id']
+        ordering = ['-likes']
         model = Movie
         fields = "__all__"
 

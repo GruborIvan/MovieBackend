@@ -20,9 +20,9 @@ class ReactionsView(generics.CreateAPIView):
                     item.save()
 
 
+
 class CommentPagination(pagination.PageNumberPagination):
     page_size = 2
-
 
 class CommentsView(generics.ListCreateAPIView):
 
