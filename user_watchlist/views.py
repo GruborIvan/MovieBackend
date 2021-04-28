@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from rest_framework import status,generics
-from user_watchlist.serializers import WatchListSerializer,WatchListSerializer2
+from user_watchlist.serializers import WatchListSerializer,WatchListCreateSerializer
 from user_watchlist.models import UserWatchList as WatchList
 
 class MovieListView(generics.ListCreateAPIView):
@@ -16,7 +16,7 @@ class MovieListView(generics.ListCreateAPIView):
         if self.request.method == 'GET':
             return WatchListSerializer
         if self.request.method == 'POST':
-            return WatchListSerializer2
+            return WatchListCreateSerializer
         else:
             return WatchListSerializer
 

@@ -7,7 +7,7 @@ from myapi.serializers import MovieSerializer
 from reactions.serializers import UserSerializer
 
 class WatchListSerializer(serializers.ModelSerializer):
-    user = serializers.ReadOnlyField(source="user.id")
+    user = UserSerializer(read_only=True)
     movie = MovieSerializer()
 
     class Meta:
@@ -15,7 +15,7 @@ class WatchListSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class WatchListSerializer2(serializers.ModelSerializer):
+class WatchListCreateSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)
 
     class Meta:
