@@ -6,6 +6,7 @@ from rest_framework.validators import UniqueValidator
 from django.contrib.auth.password_validation import validate_password
 from reactions.serializers import MovieLikesCountSerializer
 from reactions.models import Reactions
+from user_watchlist.models import UserWatchList
 
 class RegisterSerializer(serializers.ModelSerializer):
     username = serializers.EmailField(required=True,validators=[UniqueValidator(queryset=User.objects.all())])
@@ -38,14 +39,32 @@ class MovieSerializer(serializers.ModelSerializer):
 
     likes = serializers.SerializerMethodField()
     dislikes = serializers.SerializerMethodField()
+    watched = serializers.SerializerMethodField()
+    is_in_watchlist = serializers.SerializerMethodField()
 
     class Meta:
         ordering = ['-likes']
         model = Movie
         fields = "__all__"
 
+
     def get_likes(self,obj):
         return Reactions.objects.filter(movie=obj.id).filter(reaction=True).count()
 
+
     def get_dislikes(self,obj):
         return Reactions.objects.filter(movie=obj.id).filter(reaction=False).count()
+
+
+    def get_is_in_watchlist(self,obj):
+        entry = UserWatchList.objects.filter(user = self.context['request'].user.id).filter(movie=obj.id).first()
+        if entry == None:
+            return False
+        else:
+            return True
+
+    def get_watched(self,obj):
+        obj = UserWatchList.objects.filter(movie = obj.id).filter(user = self.context['request'].user.id).first()
+        if obj is None:
+            return False
+        return obj.watched
