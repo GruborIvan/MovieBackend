@@ -27,7 +27,7 @@ class MovieListView(generics.ListCreateAPIView):
             return WatchListSerializer
 
 
-class MovieListRemoveView(generics.DestroyAPIView):
+class MovieListRemoveView(generics.RetrieveUpdateDestroyAPIView):
 
     queryset = WatchList.objects.all()
-    serializer_class = WatchListSerializer
+    serializer_class = WatchListCreateSerializer
