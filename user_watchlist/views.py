@@ -10,7 +10,13 @@ class MovieListView(generics.ListCreateAPIView):
         return WatchList.objects.filter(user=self.request.user)
 
     def perform_create(self,serializer):
-        serializer.save(user=self.request.user)
+        try:
+            serializer.save(user=self.request.user)
+        except:
+            upd_movie = WatchList.objects.filter(user=self.request.user).filter(movie=self.request.data.get("movie")).first()
+            if upd_movie.watched != self.request.data.get('watched'):
+                upd_movie.watched = self.request.data.get('watched')
+                upd_movie.save()
 
     def get_serializer_class(self):
         if self.request.method == 'GET':
