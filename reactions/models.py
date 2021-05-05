@@ -10,7 +10,6 @@ class Reactions(models.Model):
     class Meta:
         unique_together = ('movie','user')
 
-
 class Comments(models.Model):
     movie = models.ForeignKey(Movie,on_delete=models.CASCADE)
     user = models.ForeignKey(User,on_delete=models.CASCADE)
