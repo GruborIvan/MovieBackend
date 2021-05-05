@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     'myapi.apps.MyapiConfig',
     'reactions.apps.ReactionsConfig',
     'user_watchlist.apps.UserWatchlistConfig',
-    'popular_movies.apps.PopularMoviesConfig',
     'django_filters',
     'rest_framework',
     'corsheaders',

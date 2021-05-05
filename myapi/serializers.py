@@ -28,6 +28,7 @@ class RegisterSerializer(serializers.ModelSerializer):
         user.save()
         return user
 
+
 class MovieGenreSerializer(serializers.ModelSerializer):
     class Meta:
         ordering = ['-id']
@@ -68,3 +69,15 @@ class MovieSerializer(serializers.ModelSerializer):
         if obj is None:
             return False
         return obj.watched
+
+
+class PopularMoviesSerializer(serializers.ModelSerializer):
+
+    likes = serializers.SerializerMethodField()
+
+    class Meta: 
+        model = Movie
+        fields = "__all__"
+
+    def get_likes(self,obj):
+        return Reactions.objects.filter(movie=obj.id).filter(reaction=True).count()

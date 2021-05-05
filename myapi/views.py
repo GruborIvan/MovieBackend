@@ -1,13 +1,15 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User
 from rest_framework import status,generics
-from myapi.serializers import MovieSerializer,MovieGenreSerializer, RegisterSerializer
+from myapi.serializers import MovieSerializer,MovieGenreSerializer, RegisterSerializer, PopularMoviesSerializer
 from myapi.models import Movie,MovieGenre
 from rest_framework.decorators import authentication_classes, permission_classes
 from django_filters import rest_framework as filters
 from reactions.models import Reactions
 from django.http import HttpResponse
 from rest_framework import pagination
+from django.db.models import Count
+import json
 
 @authentication_classes([])
 @permission_classes([])
@@ -46,11 +48,16 @@ class VisitNumberCount(generics.ListCreateAPIView):
         the_movie.save()
         return HttpResponse(the_movie.number_of_page_visits,status = status.HTTP_200_OK)
 
-
 class CommentPagination(pagination.PageNumberPagination):
     page_size = 2
 
-class FavoriteMovies(generics.ListAPIView):
-    serializer_class = MovieSerializer
+class PopularMovies(generics.ListAPIView):
+    
+    serializer_class = PopularMoviesSerializer
     queryset = Movie.objects.all()
-    pagination_class = CommentPagination
+    pagination_class = None
+
+    def get(self,request):
+        movies = Movie.objects.annotate(likes=Count('reactions__reaction')).order_by('-likes').filter(reactions__reaction=True)
+        serializer = PopularMoviesSerializer(movies,many=True)
+        return HttpResponse(json.dumps(serializer.data),status = status.HTTP_200_OK)

@@ -6,7 +6,6 @@ urlpatterns = [
     path('',include('myapi.urls')),
     path('',include('user_watchlist.urls')),
     path('',include('reactions.urls')),
-    path('',include('popular_movies.urls')),
     path('admin/', admin.site.urls),
 
     # JWT Authentication..
