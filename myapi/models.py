@@ -9,3 +9,6 @@ class Movie(models.Model):
     imageurl = models.TextField(max_length=1000)
     genre = models.ManyToManyField(MovieGenre,related_name='genres')
     number_of_page_visits = models.IntegerField(default=0)
+
+    def __str__(self):
+        return 'Title: {}  genre: {}'.format(self.title,self.genre)

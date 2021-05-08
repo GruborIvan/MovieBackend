@@ -46,7 +46,7 @@ class MovieSerializer(serializers.ModelSerializer):
     class Meta:
         ordering = ['-likes']
         model = Movie
-        fields = "__all__"
+        fields = '__all__'
 
 
     def get_likes(self,obj):
@@ -81,3 +81,9 @@ class PopularMoviesSerializer(serializers.ModelSerializer):
 
     def get_likes(self,obj):
         return Reactions.objects.filter(movie=obj.id).filter(reaction=True).count()
+
+
+class BasicMovieSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Movie
+        fields = ['title','description','imageurl','number_of_page_visits']
