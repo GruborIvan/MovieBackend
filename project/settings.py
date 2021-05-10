@@ -28,6 +28,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+BROKER_URL = 'django://'
 
 # Application definition
 
@@ -45,7 +46,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'django_elasticsearch_dsl',
-    'django_elasticsearch_dsl_drf'
+    'django_elasticsearch_dsl_drf',
+    'django_celery_results',
 ]
 
 ELASTICSEARCH_DSL = {
@@ -153,10 +155,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
 
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:8000",
-    "http://localhost:8001",
-]
+CASHES = {
+    'default' : {
+        'BACKEND' : 'django.core.cache.backends.db.DatabaseCache',
+        'LOCATION' : 'my_cache_table',
+    }
+}
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=200),
