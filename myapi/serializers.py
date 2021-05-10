@@ -48,14 +48,11 @@ class MovieSerializer(serializers.ModelSerializer):
         model = Movie
         fields = '__all__'
 
-
     def get_likes(self,obj):
         return Reactions.objects.filter(movie=obj.id).filter(reaction=True).count()
 
-
     def get_dislikes(self,obj):
         return Reactions.objects.filter(movie=obj.id).filter(reaction=False).count()
-
 
     def get_is_in_watchlist(self,obj):
         entry = UserWatchList.objects.filter(user = self.context['request'].user.id).filter(movie=obj.id).first()
@@ -81,9 +78,3 @@ class PopularMoviesSerializer(serializers.ModelSerializer):
 
     def get_likes(self,obj):
         return Reactions.objects.filter(movie=obj.id).filter(reaction=True).count()
-
-
-class BasicMovieSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Movie
-        fields = ['title','description','imageurl','number_of_page_visits']

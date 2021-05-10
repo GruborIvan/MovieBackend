@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User
 from rest_framework import status,generics
-from myapi.serializers import MovieSerializer,MovieGenreSerializer, RegisterSerializer, PopularMoviesSerializer, BasicMovieSerializer
+from myapi.serializers import MovieSerializer,MovieGenreSerializer, RegisterSerializer, PopularMoviesSerializer
 from myapi.models import Movie,MovieGenre
 from rest_framework.decorators import authentication_classes, permission_classes
 from django_filters import rest_framework as filters
@@ -9,12 +9,11 @@ from reactions.models import Reactions
 from django.http import HttpResponse
 from rest_framework import pagination
 from django.db.models import Count
-import json
 from .search import MovieIndex
-from elasticsearch_dsl.query import MultiMatch
-from elasticsearch_dsl.query import SimpleQueryString
-from rest_framework import serializers
 from django.forms.models import model_to_dict
+import json
+from django.conf import settings
+from rest_framework.response import Response
 
 @authentication_classes([])
 @permission_classes([])
@@ -71,32 +70,13 @@ class ElasticSearchView(generics.ListAPIView):
     def get(self,request):
         
         q = self.request.GET['q']
-        upd_movies = []
+        context = {'request':request}
 
         if q:
             movies = MovieIndex.search().query('match_phrase_prefix',title=q)
             movies = movies.to_queryset()
         else:
             movies = Movie.objects.all()
-
-        for movie in movies:
-            movie = model_to_dict(movie)
-            genre_values = []
-
-            for key,value in movie.items():
-                if key == 'genre':
-                    for gen in value:
-                        genre_values.append(gen.id)
-                
-            id = movie['id']
-            movie['genre'] = genre_values
-
-            serialized_movie = MovieSerializer(data=movie)
-            if serialized_movie.is_valid():
-                serialized_movie.validated_data['id'] = id
-                serialized_movie.validated_data['genre'] = genre_values
-                    
-            upd_movies.append(serialized_movie.validated_data)
-            
-        movies = json.dumps(list(upd_movies))
-        return HttpResponse(movies, status = status.HTTP_200_OK)
+        
+        ser_movies = MovieSerializer(movies,many=True,context=context)
+        return Response(ser_movies.data, status = status.HTTP_200_OK)
