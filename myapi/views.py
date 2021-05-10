@@ -12,7 +12,6 @@ from django.db.models import Count
 from .search import MovieIndex
 from django.forms.models import model_to_dict
 import json
-from django.conf import settings
 from rest_framework.response import Response
 
 @authentication_classes([])

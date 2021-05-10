@@ -134,6 +134,14 @@ USE_L10N = True
 
 USE_TZ = True
 
+# EMAIL SMTP DJANGO
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.mailtrap.io'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 2525
+EMAIL_HOST_USER = '47acbccc03bb78'
+EMAIL_HOST_PASSWORD = 'ef6da4962bd32a'
+EMAIL_RECIEVERS = ['ivan.grubor@gmail.com']
 
 STATIC_URL = '/static/'
 
