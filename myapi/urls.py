@@ -1,5 +1,5 @@
 from django.urls import path
-from myapi.views import MovieView,MovieViewByIndex,MovieGenreView,RegisterView,VisitNumberCount,PopularMovies
+from myapi.views import MovieView,MovieViewByIndex,MovieGenreView,RegisterView,VisitNumberCount,PopularMovies,ElasticSearchView
 
 urlpatterns = [
     path('register',RegisterView.as_view()),
@@ -8,4 +8,5 @@ urlpatterns = [
     path('movies/<int:pk>',MovieViewByIndex.as_view()),
     path('visits',VisitNumberCount.as_view()),
     path('movies/popular',PopularMovies.as_view()),
+    path('movies/elasticsearch',ElasticSearchView.as_view()),
 ]

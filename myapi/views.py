@@ -9,7 +9,11 @@ from reactions.models import Reactions
 from django.http import HttpResponse
 from rest_framework import pagination
 from django.db.models import Count
+from .search import MovieIndex
+from django.forms.models import model_to_dict
 import json
+from django.conf import settings
+from rest_framework.response import Response
 
 @authentication_classes([])
 @permission_classes([])
@@ -38,7 +42,6 @@ class MovieViewByIndex(generics.RetrieveUpdateDestroyAPIView):
     queryset = Movie.objects.all()
     serializer_class = MovieSerializer
 
-
 class VisitNumberCount(generics.ListCreateAPIView):
     
     def post(self,request):
@@ -61,3 +64,19 @@ class PopularMovies(generics.ListAPIView):
         movies = Movie.objects.annotate(likes=Count('reactions__reaction')).order_by('-likes').filter(reactions__reaction=True)
         serializer = PopularMoviesSerializer(movies,many=True)
         return HttpResponse(json.dumps(serializer.data),status = status.HTTP_200_OK)
+
+class ElasticSearchView(generics.ListAPIView):
+
+    def get(self,request):
+        
+        q = self.request.GET['q']
+        context = {'request':request}
+
+        if q:
+            movies = MovieIndex.search().query('match_phrase_prefix',title=q)
+            movies = movies.to_queryset()
+        else:
+            movies = Movie.objects.all()
+        
+        ser_movies = MovieSerializer(movies,many=True,context=context)
+        return Response(ser_movies.data, status = status.HTTP_200_OK)

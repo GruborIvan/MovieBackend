@@ -46,16 +46,13 @@ class MovieSerializer(serializers.ModelSerializer):
     class Meta:
         ordering = ['-likes']
         model = Movie
-        fields = "__all__"
-
+        fields = '__all__'
 
     def get_likes(self,obj):
         return Reactions.objects.filter(movie=obj.id).filter(reaction=True).count()
 
-
     def get_dislikes(self,obj):
         return Reactions.objects.filter(movie=obj.id).filter(reaction=False).count()
-
 
     def get_is_in_watchlist(self,obj):
         entry = UserWatchList.objects.filter(user = self.context['request'].user.id).filter(movie=obj.id).first()

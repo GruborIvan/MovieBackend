@@ -1,0 +1,54 @@
+[2021-05-07T10:15:24,128][INFO ][o.e.n.Node               ] [] initializing ...
+[2021-05-07T10:15:24,244][INFO ][o.e.e.NodeEnvironment    ] [wBTwO3h] using [1] data paths, mounts [[/System/Volumes/Data (/dev/disk1s7)]], net usable_space [124.4gb], net total_space [233.5gb], spins? [unknown], types [apfs]
+[2021-05-07T10:15:24,244][INFO ][o.e.e.NodeEnvironment    ] [wBTwO3h] heap size [1.9gb], compressed ordinary object pointers [true]
+[2021-05-07T10:15:24,246][INFO ][o.e.n.Node               ] node name [wBTwO3h] derived from node ID [wBTwO3heRuGXCozwlHjwow]; set [node.name] to override
+[2021-05-07T10:15:24,251][INFO ][o.e.n.Node               ] version[5.1.1], pid[30503], build[5395e21/2016-12-06T12:36:15.409Z], OS[Mac OS X/10.16/x86_64], JVM[Oracle Corporation/Java HotSpot(TM) 64-Bit Server VM/1.8.0_291/25.291-b10]
+[2021-05-07T10:15:25,776][INFO ][o.e.p.PluginsService     ] [wBTwO3h] loaded module [aggs-matrix-stats]
+[2021-05-07T10:15:25,778][INFO ][o.e.p.PluginsService     ] [wBTwO3h] loaded module [ingest-common]
+[2021-05-07T10:15:25,778][INFO ][o.e.p.PluginsService     ] [wBTwO3h] loaded module [lang-expression]
+[2021-05-07T10:15:25,779][INFO ][o.e.p.PluginsService     ] [wBTwO3h] loaded module [lang-groovy]
+[2021-05-07T10:15:25,780][INFO ][o.e.p.PluginsService     ] [wBTwO3h] loaded module [lang-mustache]
+[2021-05-07T10:15:25,782][INFO ][o.e.p.PluginsService     ] [wBTwO3h] loaded module [lang-painless]
+[2021-05-07T10:15:25,783][INFO ][o.e.p.PluginsService     ] [wBTwO3h] loaded module [percolator]
+[2021-05-07T10:15:25,784][INFO ][o.e.p.PluginsService     ] [wBTwO3h] loaded module [reindex]
+[2021-05-07T10:15:25,785][INFO ][o.e.p.PluginsService     ] [wBTwO3h] loaded module [transport-netty3]
+[2021-05-07T10:15:25,786][INFO ][o.e.p.PluginsService     ] [wBTwO3h] loaded module [transport-netty4]
+[2021-05-07T10:15:25,790][INFO ][o.e.p.PluginsService     ] [wBTwO3h] no plugins loaded
+[2021-05-07T10:15:28,509][INFO ][o.e.n.Node               ] initialized
+[2021-05-07T10:15:28,510][INFO ][o.e.n.Node               ] [wBTwO3h] starting ...
+[2021-05-07T10:15:28,777][INFO ][o.e.t.TransportService   ] [wBTwO3h] publish_address {127.0.0.1:9300}, bound_addresses {[fe80::1]:9300}, {[::1]:9300}, {127.0.0.1:9300}
+[2021-05-07T10:15:32,017][INFO ][o.e.c.s.ClusterService   ] [wBTwO3h] new_master {wBTwO3h}{wBTwO3heRuGXCozwlHjwow}{vQhMzYG0Q8Ctgixog74Quw}{127.0.0.1}{127.0.0.1:9300}, reason: zen-disco-elected-as-master ([0] nodes joined)
+[2021-05-07T10:15:32,092][INFO ][o.e.h.HttpServer         ] [wBTwO3h] publish_address {127.0.0.1:9200}, bound_addresses {[fe80::1]:9200}, {[::1]:9200}, {127.0.0.1:9200}
+[2021-05-07T10:15:32,092][INFO ][o.e.n.Node               ] [wBTwO3h] started
+[2021-05-07T10:15:32,093][INFO ][o.e.g.GatewayService     ] [wBTwO3h] recovered [0] indices into cluster_state
+[2021-05-07T10:20:08,025][INFO ][o.e.n.Node               ] [wBTwO3h] stopping ...
+[2021-05-07T10:20:08,061][INFO ][o.e.n.Node               ] [wBTwO3h] stopped
+[2021-05-07T10:20:08,062][INFO ][o.e.n.Node               ] [wBTwO3h] closing ...
+[2021-05-07T10:20:08,081][INFO ][o.e.n.Node               ] [wBTwO3h] closed
+[2021-05-07T10:20:14,200][INFO ][o.e.n.Node               ] [] initializing ...
+[2021-05-07T10:20:14,281][INFO ][o.e.e.NodeEnvironment    ] [wBTwO3h] using [1] data paths, mounts [[/System/Volumes/Data (/dev/disk1s7)]], net usable_space [124.4gb], net total_space [233.5gb], spins? [unknown], types [apfs]
+[2021-05-07T10:20:14,282][INFO ][o.e.e.NodeEnvironment    ] [wBTwO3h] heap size [1.9gb], compressed ordinary object pointers [true]
+[2021-05-07T10:20:14,284][INFO ][o.e.n.Node               ] node name [wBTwO3h] derived from node ID [wBTwO3heRuGXCozwlHjwow]; set [node.name] to override
+[2021-05-07T10:20:14,286][INFO ][o.e.n.Node               ] version[5.1.1], pid[30585], build[5395e21/2016-12-06T12:36:15.409Z], OS[Mac OS X/10.16/x86_64], JVM[Oracle Corporation/Java HotSpot(TM) 64-Bit Server VM/1.8.0_291/25.291-b10]
+[2021-05-07T10:20:15,307][INFO ][o.e.p.PluginsService     ] [wBTwO3h] loaded module [aggs-matrix-stats]
+[2021-05-07T10:20:15,307][INFO ][o.e.p.PluginsService     ] [wBTwO3h] loaded module [ingest-common]
+[2021-05-07T10:20:15,307][INFO ][o.e.p.PluginsService     ] [wBTwO3h] loaded module [lang-expression]
+[2021-05-07T10:20:15,308][INFO ][o.e.p.PluginsService     ] [wBTwO3h] loaded module [lang-groovy]
+[2021-05-07T10:20:15,308][INFO ][o.e.p.PluginsService     ] [wBTwO3h] loaded module [lang-mustache]
+[2021-05-07T10:20:15,308][INFO ][o.e.p.PluginsService     ] [wBTwO3h] loaded module [lang-painless]
+[2021-05-07T10:20:15,308][INFO ][o.e.p.PluginsService     ] [wBTwO3h] loaded module [percolator]
+[2021-05-07T10:20:15,308][INFO ][o.e.p.PluginsService     ] [wBTwO3h] loaded module [reindex]
+[2021-05-07T10:20:15,308][INFO ][o.e.p.PluginsService     ] [wBTwO3h] loaded module [transport-netty3]
+[2021-05-07T10:20:15,308][INFO ][o.e.p.PluginsService     ] [wBTwO3h] loaded module [transport-netty4]
+[2021-05-07T10:20:15,309][INFO ][o.e.p.PluginsService     ] [wBTwO3h] no plugins loaded
+[2021-05-07T10:20:17,654][INFO ][o.e.n.Node               ] initialized
+[2021-05-07T10:20:17,654][INFO ][o.e.n.Node               ] [wBTwO3h] starting ...
+[2021-05-07T10:20:17,891][INFO ][o.e.t.TransportService   ] [wBTwO3h] publish_address {127.0.0.1:9300}, bound_addresses {[fe80::1]:9300}, {[::1]:9300}, {127.0.0.1:9300}
+[2021-05-07T10:20:21,069][INFO ][o.e.c.s.ClusterService   ] [wBTwO3h] new_master {wBTwO3h}{wBTwO3heRuGXCozwlHjwow}{7IQLwBRvS-mTRvugNds8NQ}{127.0.0.1}{127.0.0.1:9300}, reason: zen-disco-elected-as-master ([0] nodes joined)
+[2021-05-07T10:20:21,139][INFO ][o.e.h.HttpServer         ] [wBTwO3h] publish_address {127.0.0.1:9200}, bound_addresses {[fe80::1]:9200}, {[::1]:9200}, {127.0.0.1:9200}
+[2021-05-07T10:20:21,141][INFO ][o.e.n.Node               ] [wBTwO3h] started
+[2021-05-07T10:20:21,144][INFO ][o.e.g.GatewayService     ] [wBTwO3h] recovered [0] indices into cluster_state
+[2021-05-07T10:27:00,903][INFO ][o.e.n.Node               ] [wBTwO3h] stopping ...
+[2021-05-07T10:27:00,956][INFO ][o.e.n.Node               ] [wBTwO3h] stopped
+[2021-05-07T10:27:00,956][INFO ][o.e.n.Node               ] [wBTwO3h] closing ...
+[2021-05-07T10:27:00,972][INFO ][o.e.n.Node               ] [wBTwO3h] closed
