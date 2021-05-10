@@ -12,10 +12,7 @@ from django.db.models import Count
 from .search import MovieIndex
 from django.forms.models import model_to_dict
 import json
-from django.core.mail import send_mail
-from django.conf import settings
 from rest_framework.response import Response
-from socket import gaierror
 
 @authentication_classes([])
 @permission_classes([])
@@ -39,23 +36,6 @@ class MovieView(generics.ListCreateAPIView):
     queryset = Movie.objects.all()
     serializer_class = MovieSerializer
     filterset_class = MovieFilter
-
-    def perform_create(self,serializer):
-        try:
-            serializer.save()
-            send_mail(
-                'A new movie is added to the system!',
-                'Movie added to movie database: \n Title: {} \n Description: {}'.format(self.request.data.get('title'),self.request.data.get('description')),
-                settings.EMAIL_HOST_USER,
-                settings.EMAIL_RECIEVERS,
-                fail_silently=False,
-            )
-            print('Email has been sent!')
-        except (gaierror,ConnectionRefusedError):
-            print('Failed to connect to server! Probably bad connection settings.')
-        except:
-            print('Error! Unable to send movie confirmation email!')
-
 
 class MovieViewByIndex(generics.RetrieveUpdateDestroyAPIView):
     queryset = Movie.objects.all()
