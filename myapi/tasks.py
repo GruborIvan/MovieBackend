@@ -6,8 +6,12 @@ from project.celery.celery import app
 from celery.exceptions import SoftTimeLimitExceeded
 from django.core.exceptions import BadRequest
 
-@app.task(name="send_email",autoretry_for=(BadRequest,SoftTimeLimitExceeded))
+@app.task(name="send_email",autoretry_for=(BadRequest,SoftTimeLimitExceeded),default_retry_delay=10)
 def send_movie_email(title,description):
+
+    print('Here!')
+    raise SoftTimeLimitExceeded('Task has encountered a timeout. Try again.')
+
     try:
         send_mail(
             'A new movie is added to the system!',

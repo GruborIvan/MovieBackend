@@ -31,7 +31,6 @@ ALLOWED_HOSTS = []
 BROKER_URL = 'django://'
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -155,6 +154,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
 
+CELERY_RESULT_BACKEND = 'django-db'
 CASHES = {
     'default' : {
         'BACKEND' : 'django.core.cache.backends.db.DatabaseCache',
