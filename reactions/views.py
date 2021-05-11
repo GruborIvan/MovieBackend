@@ -4,6 +4,7 @@ from rest_framework import generics,status
 from django.http import HttpResponse
 from rest_framework import pagination
 
+
 class ReactionsView(generics.CreateAPIView):
 
     queryset = Reactions.objects.all()
@@ -18,6 +19,8 @@ class ReactionsView(generics.CreateAPIView):
                 if item.reaction !=  self.request.data.get("reaction"):
                     item.reaction = self.request.data.get("reaction")
                     item.save()
+                else:
+                    raise Exception('This movie is alredy liked by you!')
 
 
 class CommentPagination(pagination.PageNumberPagination):
