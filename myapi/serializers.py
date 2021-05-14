@@ -1,4 +1,4 @@
-from myapi.models import Movie,MovieGenre
+from myapi.models import Movie,MovieGenre,MovieImageThumbnail
 from django.contrib.auth.models import User
 from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
@@ -28,13 +28,17 @@ class RegisterSerializer(serializers.ModelSerializer):
         user.save()
         return user
 
-
 class MovieGenreSerializer(serializers.ModelSerializer):
     class Meta:
         ordering = ['-id']
         model = MovieGenre
-        fields = ('id','genre_name')
+        fields = '__all__'
 
+class MovieImageThumbnailSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = MovieImageThumbnail
+        fields = '__all__' 
 
 class MovieSerializer(serializers.ModelSerializer):
 
@@ -42,11 +46,28 @@ class MovieSerializer(serializers.ModelSerializer):
     dislikes = serializers.SerializerMethodField()
     watched = serializers.SerializerMethodField()
     is_in_watchlist = serializers.SerializerMethodField()
+    #image = MovieImageThumbnailSerializer()
+    #genre = MovieGenreSerializer()
 
     class Meta:
-        ordering = ['-likes']
         model = Movie
         fields = '__all__'
+        depth = 2
+
+    def create(self,validated_data):
+        img = self.context['request'].data.get('image')
+        image = MovieImageThumbnail(movie_thumbnail=img,movie_full_img=img)
+        image.save()
+
+        movie = Movie(title=validated_data.pop('title'), description=validated_data.pop('description'),image=image)
+        movie.save()
+
+        for gen in self.context['request'].data.get('genre'):
+            print(gen)
+            MovieGenre.objects.get(pk=gen)
+            movie.genre.add(gen)
+        movie.save()
+        return movie
 
     def get_likes(self,obj):
         return Reactions.objects.filter(movie=obj.id).filter(reaction=True).count()
