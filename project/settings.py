@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 from datetime import timedelta
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -48,6 +49,7 @@ INSTALLED_APPS = [
     'django_elasticsearch_dsl',
     'django_elasticsearch_dsl_drf',
     'django_celery_results',
+    'easy_thumbnails',
 ]
 
 ELASTICSEARCH_DSL = {
@@ -174,3 +176,13 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 8
 }
+
+# Easy-Thumbnail Images
+THUMBNAIL_ALIASES = {
+    'thumbnail' : {'size' : (100,100), 'crop' : True},
+    'full-size' : {'size' : (400,400), 'crop' : True},
+}
+
+
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+MEDIA_URL = '/media/'

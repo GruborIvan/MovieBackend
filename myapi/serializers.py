@@ -1,4 +1,4 @@
-from myapi.models import Movie,MovieGenre
+from myapi.models import Movie,MovieGenre,MovieImageThumbnail
 from django.contrib.auth.models import User
 from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
@@ -28,13 +28,17 @@ class RegisterSerializer(serializers.ModelSerializer):
         user.save()
         return user
 
-
 class MovieGenreSerializer(serializers.ModelSerializer):
     class Meta:
         ordering = ['-id']
         model = MovieGenre
         fields = ('id','genre_name')
 
+class MovieImageThumbnailSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = MovieImageThumbnail
+        fields = '__all__' 
 
 class MovieSerializer(serializers.ModelSerializer):
 
@@ -42,6 +46,7 @@ class MovieSerializer(serializers.ModelSerializer):
     dislikes = serializers.SerializerMethodField()
     watched = serializers.SerializerMethodField()
     is_in_watchlist = serializers.SerializerMethodField()
+    image = MovieImageThumbnailSerializer()
 
     class Meta:
         ordering = ['-likes']
