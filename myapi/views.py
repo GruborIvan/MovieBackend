@@ -13,7 +13,7 @@ from .search import MovieIndex
 from django.forms.models import model_to_dict
 import json
 from rest_framework.response import Response
-from rest_framework.parsers import MultiPartParser, FormParser
+from rest_framework.parsers import MultiPartParser, FormParser, FileUploadParser
 from .renderers import JPEGRenderer,PNGRenderer
 
 @authentication_classes([])
@@ -43,38 +43,7 @@ class MovieView(generics.ListCreateAPIView):
     queryset = Movie.objects.all()
     serializer_class = MovieSerializer
     filterset_class = MovieFilter
-    parser_classes = [MultiPartParser]
-
-    def post(self, request, format=None):
-
-        mov = Movie(title=request.data.get('title'),description=request.data.get('description'))
-
-        if request.data.get('imageurl') != '':
-            
-            mov.imageurl = request.data.get('title')
-            mov.save()
-            for gen in request.data.get('genre'):
-                MovieGenre.objects.get(pk=gen)
-                mov.genre.add(gen)
-            mov.save()
-            return HttpResponse(status.HTTP_201_CREATED)
-
-        else:
-            img = self.request.data.get('image')
-
-            print('Recieved image: {0}'.format(str(img)))
-            movie_image = MovieImageThumbnail(movie_thumbnail = img, movie_full_img = img)
-            movie_image.save()
-            mov.image = movie_image
-            mov.save()
-            
-            for gen in request.data.get('genre'):
-                MovieGenre.objects.get(pk=gen)
-                mov.genre.add(gen)
-            mov.save()
-
-            return HttpResponse(status=status.HTTP_201_CREATED)        
-
+    parser_classes = [MultiPartParser,FileUploadParser]      
 
 class MovieViewByIndex(generics.RetrieveUpdateDestroyAPIView):
     queryset = Movie.objects.all()
